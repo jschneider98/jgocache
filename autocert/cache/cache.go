@@ -24,8 +24,8 @@ import (
 	// PostgreSQL driver
 	_ "github.com/lib/pq"
 
-	rediscache "github.com/teran/svcproxy/autocert/cache/redis"
-	sqlcache "github.com/teran/svcproxy/autocert/cache/sql"
+	rediscache "github.com/jschneider98/jgocache/autocert/cache/redis"
+	sqlcache "github.com/jschneider98/jgocache/autocert/cache/sql"
 )
 
 var _ autocert.Cache = &Cache{}
@@ -58,7 +58,7 @@ type Cache struct {
 // and if this attempt fails - will ask backend's Get to fill cache and return
 // the data.
 // If encryption is turned on Get will try to decrypt data retrieved from
-// backend's Get befor filling cache and returning the data.
+// backend's Get before filling cache and returning the data.
 func (c *Cache) Get(ctx context.Context, key string) ([]byte, error) {
 	if c.usePrecaching {
 		data, ok := c.precache.Load(key)

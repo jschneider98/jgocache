@@ -15,11 +15,12 @@ type CacheTestSuite struct {
 
 func (s *CacheTestSuite) TestInitializeSQLCacheWithEncryption() {
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "mysql",
 		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"encryptionKey": "testkey",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	s.Require().NoError(err)
 
 	// Put data sample
@@ -43,10 +44,11 @@ func (s *CacheTestSuite) TestInitializeSQLCacheWithEncryption() {
 
 func (s *CacheTestSuite) TestInitializeSQLCacheNoEncryption() {
 	options := map[string]string{
-		"driver": "mysql",
-		"dsn":    "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
+		"backend": "sql",
+		"driver":  "mysql",
+		"dsn":     "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	s.Require().NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -68,12 +70,13 @@ func (s *CacheTestSuite) TestInitializeSQLCacheNoEncryption() {
 
 func (s *CacheTestSuite) TestInitializeSQLCacheWithPrecaching() {
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "mysql",
 		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "true",
 		"encryptionKey": "",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	s.Require().NoError(err)
 
 	// Put data sample
@@ -97,12 +100,13 @@ func (s *CacheTestSuite) TestInitializeSQLCacheWithPrecaching() {
 
 func (s *CacheTestSuite) TestInitializeSQLCacheWithEncryptionAndPrecaching() {
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "mysql",
 		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"encryptionKey": "testkey",
 		"usePrecaching": "true",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	s.Require().NoError(err)
 
 	// Put data sample
@@ -129,11 +133,12 @@ func (s *CacheTestSuite) TestInitializeDirCacheWithEncryptionAndPrecaching() {
 	s.Require().NoError(err)
 
 	options := map[string]string{
+		"backend":       "dir",
 		"path":          dir,
 		"encryptionKey": "testkey",
 		"usePrecaching": "true",
 	}
-	c, err := NewCacheFactory("dir", options)
+	c, err := NewCacheFactory(options)
 	s.Require().NoError(err)
 
 	// Put data sample
@@ -157,9 +162,10 @@ func (s *CacheTestSuite) TestInitializeDirCacheWithEncryptionAndPrecaching() {
 
 func (s *CacheTestSuite) TestInitializeRedisCacheNoEncryption() {
 	options := map[string]string{
+		"backend": "redis",
 		"addr": "127.0.0.1:6379",
 	}
-	c, err := NewCacheFactory("redis", options)
+	c, err := NewCacheFactory(options)
 	s.Require().NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))

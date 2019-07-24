@@ -69,22 +69,22 @@ func (s *SQLCacheTestSuite) TestPostgreSQLCache() {
 
 func (s *SQLCacheTestSuite) SetupTest() {
 	var err error
-	s.mysql, err = sql.Open("mysql", "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true")
+	s.mysql, err = sql.Open("mysql", "root@tcp(127.0.0.1:3306)/test_db?parseTime=true")
 	s.Require().NoError(err)
 	s.Require().NotNil(s.mysql)
 
-	_, err = s.mysql.Exec("DROP TABLE IF EXISTS `svcproxy`;")
+	_, err = s.mysql.Exec("DROP TABLE IF EXISTS `test_db`;")
 	s.Require().NoError(err)
 
 	// Migrate manually to avoid possible race on each NewCache call
 	err = maybeMigrate(s.mysql, "mysql")
 	s.Require().NoError(err)
 
-	s.postgresql, err = sql.Open("postgres", "postgres://postgres@localhost/svcproxy?sslmode=disable")
+	s.postgresql, err = sql.Open("postgres", "postgres://postgres@localhost/test_db?sslmode=disable")
 	s.Require().NoError(err)
 	s.Require().NotNil(s.postgresql)
 
-	_, err = s.postgresql.Exec("DROP TABLE IF EXISTS svcproxy;")
+	_, err = s.postgresql.Exec("DROP TABLE IF EXISTS test_db;")
 	s.Require().NoError(err)
 
 	// Migrate manually to avoid possible race on each NewCache call

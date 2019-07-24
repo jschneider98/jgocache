@@ -12,12 +12,13 @@ import (
 func BenchmarkCacheGetSQLMySQLWithoutEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "mysql",
 		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "false",
 		"encryptionKey": "",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -31,12 +32,13 @@ func BenchmarkCacheGetSQLMySQLWithoutEncryptionAndPrecaching(b *testing.B) {
 func BenchmarkCacheGetSQLMySQLWithEncryptionAndWithoutPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "mysql",
 		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "false",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -50,12 +52,13 @@ func BenchmarkCacheGetSQLMySQLWithEncryptionAndWithoutPrecaching(b *testing.B) {
 func BenchmarkCacheGetSQLMySQLWithEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "mysql",
 		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "true",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -70,12 +73,13 @@ func BenchmarkCacheGetSQLMySQLWithEncryptionAndPrecaching(b *testing.B) {
 func BenchmarkCacheGetSQLPostgreSQLWithoutEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "postgres",
 		"dsn":           "postgres://postgres@localhost/test_db?sslmode=disable",
 		"usePrecaching": "false",
 		"encryptionKey": "",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -89,12 +93,13 @@ func BenchmarkCacheGetSQLPostgreSQLWithoutEncryptionAndPrecaching(b *testing.B) 
 func BenchmarkCacheGetSQLPostgreSQLWithEncryptionAndWithoutPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "postgres",
 		"dsn":           "postgres://postgres@localhost/test_db?sslmode=disable",
 		"usePrecaching": "false",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -108,12 +113,13 @@ func BenchmarkCacheGetSQLPostgreSQLWithEncryptionAndWithoutPrecaching(b *testing
 func BenchmarkCacheGetSQLPostgreSQLWithEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
+		"backend":       "sql",
 		"driver":        "postgres",
 		"dsn":           "postgres://postgres@localhost/test_db?sslmode=disable",
 		"usePrecaching": "true",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("sql", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -132,11 +138,12 @@ func BenchmarkCacheGetDirWithoutEncryptionAndPrecaching(b *testing.B) {
 	r.NoError(err)
 
 	options := map[string]string{
+		"backend":       "dir",
 		"path":          dir,
 		"usePrecaching": "false",
 		"encryptionKey": "",
 	}
-	c, err := NewCacheFactory("dir", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -154,11 +161,12 @@ func BenchmarkCacheGetDirWithEncryptionAndWithoutPrecaching(b *testing.B) {
 	r.NoError(err)
 
 	options := map[string]string{
+		"backend":       "dir",
 		"path":          dir,
 		"usePrecaching": "false",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("dir", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -176,11 +184,12 @@ func BenchmarkCacheGetDirWithEncryptionAndPrecaching(b *testing.B) {
 	r.NoError(err)
 
 	options := map[string]string{
+		"backend":       "dir",
 		"path":          dir,
 		"usePrecaching": "true",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("dir", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -196,11 +205,12 @@ func BenchmarkCacheGetRedisWithoutEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 
 	options := map[string]string{
+		"backend":       "redis",
 		"addr":          "127.0.0.1:6379",
 		"usePrecaching": "false",
 		"encryptionKey": "",
 	}
-	c, err := NewCacheFactory("redis", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -215,11 +225,12 @@ func BenchmarkCacheGetRedisWithEncryptionAndWithoutPrecaching(b *testing.B) {
 	r := require.New(b)
 
 	options := map[string]string{
+		"backend":       "redis",
 		"addr":          "127.0.0.1:6379",
 		"usePrecaching": "false",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("redis", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))
@@ -234,11 +245,12 @@ func BenchmarkCacheGetRedisWithEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 
 	options := map[string]string{
+		"backend":       "redis",
 		"addr":          "127.0.0.1:6379",
 		"usePrecaching": "true",
 		"encryptionKey": "blah",
 	}
-	c, err := NewCacheFactory("redis", options)
+	c, err := NewCacheFactory(options)
 	r.NoError(err)
 
 	err = c.Put(context.Background(), "test-key", []byte("test-data"))

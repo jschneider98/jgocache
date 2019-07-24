@@ -14,7 +14,7 @@ type PostgreSQL struct {
 	DB *sql.DB
 }
 
-// Get serves to retrieve cached data from MySQL database
+// Get serves to retrieve cached data from PostgreSQL database
 func (m *PostgreSQL) Get(ctx context.Context, key string) ([]byte, error) {
 	var value []byte
 
@@ -54,7 +54,7 @@ func (m *PostgreSQL) Put(ctx context.Context, key string, data []byte) error {
 	return err
 }
 
-// Delete serves to delete data from MySQL database
+// Delete serves to delete data from PostgreSQL database
 func (m *PostgreSQL) Delete(ctx context.Context, key string) error {
 	_, err := m.DB.Exec(`
 		DELETE FROM

@@ -16,7 +16,7 @@ type CacheTestSuite struct {
 func (s *CacheTestSuite) TestInitializeSQLCacheWithEncryption() {
 	options := map[string]string{
 		"driver":        "mysql",
-		"dsn":           "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"encryptionKey": "testkey",
 	}
 	c, err := NewCacheFactory("sql", options)
@@ -44,7 +44,7 @@ func (s *CacheTestSuite) TestInitializeSQLCacheWithEncryption() {
 func (s *CacheTestSuite) TestInitializeSQLCacheNoEncryption() {
 	options := map[string]string{
 		"driver": "mysql",
-		"dsn":    "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":    "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 	}
 	c, err := NewCacheFactory("sql", options)
 	s.Require().NoError(err)
@@ -69,7 +69,7 @@ func (s *CacheTestSuite) TestInitializeSQLCacheNoEncryption() {
 func (s *CacheTestSuite) TestInitializeSQLCacheWithPrecaching() {
 	options := map[string]string{
 		"driver":        "mysql",
-		"dsn":           "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "true",
 		"encryptionKey": "",
 	}
@@ -98,7 +98,7 @@ func (s *CacheTestSuite) TestInitializeSQLCacheWithPrecaching() {
 func (s *CacheTestSuite) TestInitializeSQLCacheWithEncryptionAndPrecaching() {
 	options := map[string]string{
 		"driver":        "mysql",
-		"dsn":           "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"encryptionKey": "testkey",
 		"usePrecaching": "true",
 	}

@@ -13,7 +13,7 @@ func BenchmarkCacheGetSQLMySQLWithoutEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
 		"driver":        "mysql",
-		"dsn":           "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "false",
 		"encryptionKey": "",
 	}
@@ -32,7 +32,7 @@ func BenchmarkCacheGetSQLMySQLWithEncryptionAndWithoutPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
 		"driver":        "mysql",
-		"dsn":           "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "false",
 		"encryptionKey": "blah",
 	}
@@ -51,7 +51,7 @@ func BenchmarkCacheGetSQLMySQLWithEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
 		"driver":        "mysql",
-		"dsn":           "root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true",
+		"dsn":           "root@tcp(127.0.0.1:3306)/test_db?parseTime=true",
 		"usePrecaching": "true",
 		"encryptionKey": "blah",
 	}
@@ -71,7 +71,7 @@ func BenchmarkCacheGetSQLPostgreSQLWithoutEncryptionAndPrecaching(b *testing.B) 
 	r := require.New(b)
 	options := map[string]string{
 		"driver":        "postgres",
-		"dsn":           "postgres://postgres@localhost/svcproxy?sslmode=disable",
+		"dsn":           "postgres://postgres@localhost/test_db?sslmode=disable",
 		"usePrecaching": "false",
 		"encryptionKey": "",
 	}
@@ -90,7 +90,7 @@ func BenchmarkCacheGetSQLPostgreSQLWithEncryptionAndWithoutPrecaching(b *testing
 	r := require.New(b)
 	options := map[string]string{
 		"driver":        "postgres",
-		"dsn":           "postgres://postgres@localhost/svcproxy?sslmode=disable",
+		"dsn":           "postgres://postgres@localhost/test_db?sslmode=disable",
 		"usePrecaching": "false",
 		"encryptionKey": "blah",
 	}
@@ -109,7 +109,7 @@ func BenchmarkCacheGetSQLPostgreSQLWithEncryptionAndPrecaching(b *testing.B) {
 	r := require.New(b)
 	options := map[string]string{
 		"driver":        "postgres",
-		"dsn":           "postgres://postgres@localhost/svcproxy?sslmode=disable",
+		"dsn":           "postgres://postgres@localhost/test_db?sslmode=disable",
 		"usePrecaching": "true",
 		"encryptionKey": "blah",
 	}

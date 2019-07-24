@@ -1,7 +1,7 @@
 # Autocert/cache
 
-`autocert.Cache` implementations for svcproxy
-Allows to use precaching for realy fast reads and encryption for better security.
+`autocert.Cache` implementations
+Allow the use of precaching for realy fast reads and encryption for better security.
 
 # Configuration
 
@@ -11,11 +11,11 @@ Simply wraps [`golang.org/x/crypto/acme/autocert.DirCache`](https://godoc.org/go
 
 Required options:
  * `path` - path to the directory to store cache. Directory may exist or will be
-   created by svcproxy automatically.
+   created automatically.
 
 ## Redis Cache backend
 
-Redis cache backend allows to use Redis for certificate cache
+Redis cache
 
 Required options:
 * `addr` - Redis database address
@@ -32,19 +32,19 @@ Required options:
  * `driver` - database driver to use. Allowed options: `mysql`, `postgres`
  * `dsn` - Data source name refering database in the form supported by Go's drivers.
    Examples:
-    - MySQL: `root@tcp(127.0.0.1:3306)/svcproxy?parseTime=true`
-    - PostgreSQL: `postgres://postgres@localhost/svcproxy?sslmode=disable`
+    - MySQL: `root@tcp(127.0.0.1:3306)/db_name?parseTime=true`
+    - PostgreSQL: `postgres://postgres@localhost/db_name?sslmode=disable`
 
-   More examples could be found in tests.
+   More examples can be found in tests.
 
 # Benchmarks
 
 ```
 › make benchmark
-cd ./src/svcproxy/autocert/cache && go test -bench=. -cpu=1,2,3,4
+go test -bench=. -cpu=1,2,3,4
 goos: darwin
 goarch: amd64
-pkg: svcproxy/autocert/cache
+pkg: jgocache/autocert/cache
 BenchmarkCacheGetSQLMySQLWithoutEncryptionAndPrecaching              	    2000	    916999 ns/op
 BenchmarkCacheGetSQLMySQLWithoutEncryptionAndPrecaching-2            	    2000	    930788 ns/op
 BenchmarkCacheGetSQLMySQLWithoutEncryptionAndPrecaching-3            	    2000	    926944 ns/op
@@ -82,5 +82,5 @@ BenchmarkCacheGetDirWithEncryptionAndPrecaching-2                    	30000000	 
 BenchmarkCacheGetDirWithEncryptionAndPrecaching-3                    	30000000	        39.4 ns/op
 BenchmarkCacheGetDirWithEncryptionAndPrecaching-4                    	30000000	        39.4 ns/op
 PASS
-ok  	svcproxy/autocert/cache	60.091s
+ok  	jgocache/autocert/cache	60.091s
 ```

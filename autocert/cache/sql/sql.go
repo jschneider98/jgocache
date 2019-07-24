@@ -10,13 +10,13 @@ import (
 
 	"golang.org/x/crypto/acme/autocert"
 
-	"github.com/teran/svcproxy/autocert/cache/sql/mysql"
-	"github.com/teran/svcproxy/autocert/cache/sql/postgresql"
+	"github.com/jschneider98/jgocache/autocert/cache/sql/mysql"
+	"github.com/jschneider98/jgocache/autocert/cache/sql/postgresql"
 )
 
 var _ autocert.Cache = &Cache{}
 
-// Cache implements autocert.Cache with MySQL database
+// Cache implements autocert.Cache with a SQL database
 type Cache struct {
 	driver autocert.Cache
 }
@@ -31,17 +31,11 @@ func NewCache(db *sql.DB) (*Cache, error) {
 			DB: db,
 		}
 
-		if err := maybeMigrate(db, "mysql"); err != nil {
-			return nil, err
-		}
 	case "Driver: *pq.Driver":
 		driver = &postgresql.PostgreSQL{
 			DB: db,
 		}
 
-		if err := maybeMigrate(db, "postgres"); err != nil {
-			return nil, err
-		}
 	default:
 		return nil, errors.New("Unsupported driver")
 	}

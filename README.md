@@ -3,7 +3,7 @@ jgocache is almost an exact copy of teran's (Igor Shishkin) autocert cache code 
 ***
 I've made a few modest changes to the code for my needs.
 
-* Removed the cache code out of the reverse proxy. 
+* Isolated the cache code out of the reverse proxy.
 * I removed the "migrateMaybe" logic for the DB schema. It didn't seem worth the additional code dependencies and didn't always work for me in my product environments. As such if you're using a SQL backend you'll have to either use your own schema migration code or manually add the table.
 * I simplified the cache factory interface.
 
